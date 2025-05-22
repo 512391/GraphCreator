@@ -2,41 +2,31 @@
 
 Node::Node(char Name)
 {
-  Node::info = new adjacencyInfo();
   Node::name = Name;
+}
+
+Node::~Node()
+{
+  for (map<Node*, int>::iterator it = nodeToEdge.begin(); it != nodeToEdge.end(); ++it) {
+    it->first->RemoveNode(this);
+    cout << it->first->name << endl;
+  }
 }
 
 void Node::AddNode(Node* node, int length)
 {
-  info->connectedNodes.push_back(node);
-  Node** nodes = {this, node};
-  info->nodeToEdge[node] = new Edge(length, nodes);
-}
-
-void Node::AddNode(Node* node, Edge* edge)
-{
-  info->connectedNodes.push_back(node);
-  info->nodeToEdge[node] = edge;
+  nodeToEdge[node] = length;
 }
 
 void Node::RemoveNode(Node* node)
 {
-  int i = 0;
-
-  info->nodeToEdge.erase(node);
-  
-  for(Node* val : info->connectedNodes)
-    {
-      if(val == node)
-	{
-	  info->connectedNodes.erase(info->connectedNodes.begin()+i);
-	  return;
-	}
-      i++;
-    }
+  nodeToEdge.erase(node);
 }
 
-adjacencyInfo Node::getAdjacencyInfo()
+map<Node*, int> Node::getAdjacencyInfo()
 {
-  return info;
+  for (map<Node*, int>::iterator it = nodeToEdge.begin(); it != nodeToEdge.end(); ++it) {
+    cout << it->first->name << ", Length: " << it->second << endl;
+  }
+  return nodeToEdge;
 }
