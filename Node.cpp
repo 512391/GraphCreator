@@ -25,8 +25,5 @@ void Node::RemoveNode(Node* node)
 
 map<Node*, int> Node::getAdjacencyInfo()
 {
-  for (map<Node*, int>::iterator it = nodeToEdge.begin(); it != nodeToEdge.end(); ++it) {
-    cout << it->first->name << ", Length: " << it->second << endl;
-  }
   return nodeToEdge;
 }

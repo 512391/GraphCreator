@@ -8,6 +8,7 @@ class Graph
  public:
   Node** nodes;
   int currentIndex;
+  int amountOfNodes;
   Graph();
   void addNode(char a);
   void connectNodes(char a, char b, int length);
